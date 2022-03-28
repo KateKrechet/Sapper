@@ -10,18 +10,20 @@ namespace Sapper
         public int[,] Area { get; private set; }
         public int N { get; private set; }//размерность массива
         public int MinesCount { get; private set; }//количество мин
+        public bool IsEnd { get; set; }
         public SapperGame()//создание поля по умолчанию
         {
             N = 10;
             MinesCount = 10;
             Area = new int[N, N];
+            IsEnd = false;
             GenerateArea();
         }
         public SapperGame(int N, int MinesCount)//создание с заданными параметрами
         {
             this.N = Math.Abs(N);
             this.MinesCount = Math.Abs(MinesCount);
-
+            IsEnd = false;
             if (MinesCount >= N * N)
                 this.MinesCount = N;
 
@@ -31,7 +33,7 @@ namespace Sapper
         private void GenerateArea()
         {
             Random random = new Random();
-            for (int i = 0; i < MinesCount; i++)
+            for (int i = 0; i < MinesCount;)
             {
                 int x = random.Next(N);
                 int y = random.Next(N);
